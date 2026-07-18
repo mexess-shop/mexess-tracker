@@ -27,8 +27,8 @@
   },
   "shipping_rules": {
     "weight_bands_kg": [1, 2, 3],
-    "customer_paid_below_threshold_eur": 4.90,
-    "free_shipping_threshold_eur": 30,
+    "customer_paid_below_threshold_eur": 2.90,
+    "free_shipping_threshold_eur": 40,
     "courier_selection": "Customer chooses courier at checkout; Shopify shipping line title = courier name in this tariff card. Compute true weighted per-country cost from order shipping lines.",
     "insurance_pct_of_declared_value": 1
   },
