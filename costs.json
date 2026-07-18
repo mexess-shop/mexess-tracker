@@ -1,0 +1,98 @@
+{
+  "_meta": {
+    "description": "MEXESS unit economics — source of truth for routines. Prices in EUR EXCL VAT (20% BG VAT is added on invoice but recoverable as input VAT). No fuel surcharge. Insurance = 1% of declared value everywhere.",
+    "tariff_source": "euShipments PricesExport_2580.xlsx, saved 2026-07-16",
+    "updated": "2026-07-17"
+  },
+  "goals": {
+    "monthly_revenue_eur": 30000,
+    "target_mer_min": 3.0,
+    "target_mer_stretch": 3.5,
+    "target_cpp_eur": [12, 14.5],
+    "monthly_profit_target_eur": [7000, 10000],
+    "monthly_ad_budget_eur": [8500, 10000],
+    "target_aov_eur": 43,
+    "aov_stretch_eur": 48
+  },
+  "meta": {
+    "ad_account_id": "act_888108638763676",
+    "active_campaigns": ["BROAD EU", "Retargeting", "BOF Balkans", "BOF DACH"]
+  },
+  "products": {
+    "tshirt":     { "price_eur": 29.90, "cogs_eur": 4.58,  "weight_kg": 0.20 },
+    "sweatshirt": { "cogs_eur": 11.86, "weight_kg": 0.45 },
+    "hoodie":     { "cogs_eur": 14.92, "weight_kg": 0.50 },
+    "packaging_weight_kg": 0.10,
+    "notes": "T-shirt = hero product (~72-77% of revenue). Weight bands: most pure-tee orders stay in the <=1kg band up to 5 units."
+  },
+  "shipping_rules": {
+    "weight_bands_kg": [1, 2, 3],
+    "customer_paid_below_threshold_eur": 4.90,
+    "free_shipping_threshold_eur": 30,
+    "courier_selection": "Customer chooses courier at checkout; Shopify shipping line title = courier name in this tariff card. Compute true weighted per-country cost from order shipping lines.",
+    "insurance_pct_of_declared_value": 1
+  },
+  "tariffs_eur_per_shipment": {
+    "RO": {
+      "FAN Courier": { "address": [3.09, 3.48, 3.88], "office": [2.76, 3.17, 3.57], "cod": 0.32 },
+      "Cargus":      { "address": [2.96, 3.35, 3.75], "office": [2.93, 3.33, 3.73], "cod": 0.46 },
+      "SameDay":     { "address": [3.10, 3.50, 4.09], "office": [2.74, 3.14, 3.75], "cod": 0.43 }
+    },
+    "GR": {
+      "ACS":    { "address": [4.11, 4.85, 6.52], "cod": 1.31 },
+      "Geniki": { "address": [3.60, 4.36, 5.75], "cod": 0.76 }
+    },
+    "HR": {
+      "DPD":      { "address": [4.75, 6.37, 8.08], "office": [3.60, 5.24, 7.01], "cod": 0.38 },
+      "Overseas": { "address": [4.79, 6.39, 7.99], "cod": 0.65 },
+      "GLS":      { "address": [6.38, 7.94, 10.03], "office": [5.81, 7.37, 9.48], "cod": 0.60 }
+    },
+    "SI": {
+      "DPD":             { "address": [4.74, 6.33, 7.95], "cod": 0.38 },
+      "Slovenska Posta": { "address": [5.23, 6.81, 12.41], "cod": 0.77 }
+    },
+    "NL": { "PostNL":    { "address": [7.79, 9.89, 11.55] } },
+    "FR": { "Colissimo": { "address": [9.16, 11.91, 15.17] } },
+    "DE": {
+      "Hermes": { "address": [7.52, 9.52, 11.84] },
+      "DHL":    { "address": [7.40, 9.70, 12.11] }
+    },
+    "FI": { "Finland Post": { "address": [11.15, 15.24, 20.26] } },
+    "BE": { "PostNL":       { "address": [8.54, 10.16, 11.82] } },
+    "ES": { "CTT Express":  { "address": [6.96, 9.98, 12.99] } },
+    "PT": { "CTT Express":  { "address": [7.51, 10.82, 14.11] } },
+    "SE": { "PostNord":     { "address": [9.76, 14.83, 21.98] } },
+    "DK": { "PostNord":     { "address": [10.07, 13.64, 18.71] } },
+    "IE": { "AnPost":       { "address": [7.59, 10.28, 12.96] } },
+    "MT": { "MaltaPost":    { "address": [12.17, 20.96, 26.22] } },
+    "LU": { "PostNL":       { "address": [7.11, 10.57, 14.04] } },
+    "CY": { "Geniki":       { "address": [7.05, 7.90, 8.75], "cod": 0.76 } },
+    "EE": { "Venipak":      { "address": [9.20, 12.06, 15.62], "cod": 1.20 } },
+    "LV": { "Venipak":      { "address": [7.63, 10.51, 14.82], "cod": 1.20 } },
+    "LT": { "Venipak":      { "address": [7.29, 10.18, 13.78], "cod": 1.20 } },
+    "HU": {
+      "GLS":         { "address": [4.41, 5.55, 6.89], "office": [4.26, 5.37, 6.47], "cod": "0.55-1.76 tiered by amount" },
+      "Express One": { "address": [3.99, 5.10, 6.58], "cod": 0.32 }
+    },
+    "SK": {
+      "GLS": { "address": [4.92, 6.68, 8.86], "office": [4.23, 5.98, 7.73], "cod": 0.60 },
+      "SPS": { "address": [4.65, 6.45, 8.33], "office": [3.58, 5.38, 7.19], "cod": 0.76 }
+    },
+    "IT": { "Poste Italiane": { "address": [6.66, 8.70, 11.28], "cod": "2% min 1.15" } },
+    "PL": { "InPost": { "address": [5.38, 7.72, 10.06], "locker": [5.52, 7.86, 10.20], "cod": 0.53 } },
+    "AT": { "DPD":    { "address": [6.45, 8.50, 10.54] } },
+    "CZ": {
+      "PPL":     { "address": [5.59, 7.98, 10.38], "office": [4.90, 7.32, 9.73], "cod": 0.55 },
+      "CZ Post": { "address": [4.79, 6.52, 8.25], "office": [4.26, 6.01, 7.75], "cod": 0.58 }
+    }
+  },
+  "other_costs": {
+    "payment_fees_pct_estimate": 2.0,
+    "contribution_margin_fallback_pct": 62,
+    "notes": "Use contribution_margin_fallback_pct ONLY when order-level data is unavailable. Preferred: revenue - COGS(items) - shipping(actual courier+country+weight band) - COD - payment fees."
+  },
+  "data_hygiene": {
+    "bot_traffic": "Exclude US and CN sessions from CVR/blended metrics (validated recurring bot spikes).",
+    "attribution_note": "Meta-reported revenue uses 7d-click/1d-view; cross-check with Shopify MTD revenue as MER sanity check."
+  }
+}

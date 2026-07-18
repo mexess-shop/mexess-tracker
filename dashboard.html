@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MEXESS · Meta Ads Goal</title>
+<style>
+  :root{
+    --graphite:#141414; --bone:#F1EFE9; --khaki:#B8A87E; --stone:#8B8577;
+    --faded:#B0AA9C; --alert:#C97B5A; --card:#FFFFFF; --line:#E3DFD4;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bone);color:var(--graphite);font-family:'Helvetica Neue',Arial,sans-serif;padding:32px 16px 64px}
+  .wrap{max-width:440px;margin:0 auto}
+  .eyebrow{font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--stone)}
+  h1{font-size:24px;font-weight:600;letter-spacing:-.02em;margin-top:4px}
+  .updated{font-size:10px;color:var(--faded);margin-top:2px}
+  .hero{background:var(--graphite);color:var(--bone);border-radius:16px;padding:24px;margin-top:20px}
+  .hero .num{font-size:36px;font-weight:600;letter-spacing:-.02em;font-variant-numeric:tabular-nums;margin-top:8px}
+  .hero .goal{color:var(--khaki);font-variant-numeric:tabular-nums}
+  .row{display:flex;justify-content:space-between;align-items:baseline}
+  .track{position:relative;height:8px;border-radius:99px;background:#2A2A28;margin-top:24px}
+  .fill{position:absolute;left:0;top:0;height:8px;border-radius:99px;background:var(--khaki);transition:width .7s}
+  .fill.bad{background:var(--alert)}
+  .marker{position:absolute;top:-6px;width:1px;height:20px;background:var(--bone)}
+  .sub{display:flex;justify-content:space-between;font-size:10px;color:var(--stone);margin-top:8px}
+  .pace{margin-top:16px;font-size:14px}
+  .pace .ok{color:var(--khaki)} .pace .bad{color:var(--alert)}
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:16px}
+  .kpi{background:var(--card);border-radius:12px;padding:12px;box-shadow:0 1px 2px rgba(20,20,20,.04)}
+  .kpi .v{font-size:18px;font-weight:600;font-variant-numeric:tabular-nums;margin-top:4px}
+  .kpi .t{font-size:10px;color:var(--faded);margin-top:2px}
+  .card{background:var(--card);border-radius:16px;padding:20px;margin-top:16px;box-shadow:0 1px 2px rgba(20,20,20,.04)}
+  .profit .v{font-size:24px;font-weight:600;font-variant-numeric:tabular-nums}
+  .profit .v.low{color:var(--alert)}
+  table{width:100%;border-collapse:collapse;margin-top:12px;font-size:12px}
+  td{padding:8px 0;border-bottom:1px solid var(--bone)}
+  tr:last-child td{border-bottom:0}
+  td.r{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+  td.d{color:var(--stone)}
+  .footer{text-align:center;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--faded);margin-top:40px}
+  .err{background:var(--card);border-radius:12px;padding:16px;margin-top:20px;font-size:13px;color:var(--alert)}
+</style>
+</head>
+<body>
+<div class="wrap" id="app">
+  <div class="eyebrow">MEXESS · Meta Ads</div>
+  <h1>Месечна цел</h1>
+  <div class="updated" id="updated">Зареждане…</div>
+  <div id="content"></div>
+  <div class="footer">Elevate Your Everyday</div>
+</div>
+<script>
+const fmtEUR = n => (n==null||isNaN(n)) ? "—" : "€"+Math.round(n).toLocaleString("de-DE");
+const fmt1 = n => (n==null||isNaN(n)||!isFinite(n)) ? "—" : n.toFixed(1);
+const fmt2 = n => (n==null||isNaN(n)||!isFinite(n)) ? "—" : n.toFixed(2);
+const MONTHS = ["Януари","Февруари","Март","Април","Май","Юни","Юли","Август","Септември","Октомври","Ноември","Декември"];
+
+async function load(){
+  try{
+    const [dRes,cRes] = await Promise.all([fetch("data.json?t="+Date.now()), fetch("costs.json?t="+Date.now())]);
+    const data = await dRes.json();
+    const costs = await cRes.json();
+    render(data, costs);
+  }catch(e){
+    document.getElementById("content").innerHTML =
+      '<div class="err">Не успях да заредя data.json / costs.json. Провери дали GitHub Pages е активен и файловете са в корена на репото.</div>';
+    document.getElementById("updated").textContent = "";
+  }
+}
+
+function render(data, costs){
+  const g = costs.goals || {};
+  const now = new Date();
+  const mk = now.getFullYear()+"-"+String(now.getMonth()+1).padStart(2,"0");
+  const month = (data.months||{})[mk] || Object.values(data.months||{}).slice(-1)[0] || {entries:[]};
+  const goal = month.goal_eur || g.monthly_revenue_eur || 30000;
+  const entries = (month.entries||[]).slice().sort((a,b)=>a.date.localeCompare(b.date));
+  const last = entries[entries.length-1];
+
+  const daysInMonth = new Date(now.getFullYear(), now.getMonth()+1, 0).getDate();
+  const day = last ? parseInt(last.date.slice(8),10) : now.getDate();
+
+  const rev = last ? last.mtd.revenue : 0;
+  const spend = last ? last.mtd.spend : 0;
+  const orders = last ? last.mtd.orders : 0;
+
+  const progress = Math.min(rev/goal, 1);
+  const planPct = Math.min(day/daysInMonth, 1);
+  const planRev = goal*planPct;
+  const delta = rev - planRev;
+  const proj = day>0 ? rev/day*daysInMonth : 0;
+  const mer = spend>0 ? rev/spend : null;
+  const cpp = (orders>0&&spend>0) ? spend/orders : null;
+  const aov = orders>0 ? rev/orders : null;
+  const remDays = Math.max(daysInMonth-day,0);
+  const perDay = remDays>0 ? Math.max(goal-rev,0)/remDays : 0;
+
+  const marginPct = (costs.other_costs&&costs.other_costs.contribution_margin_fallback_pct)||62;
+  const profit = (last&&last.profit_mtd_est!=null) ? last.profit_mtd_est : rev*marginPct/100 - spend;
+  const projProfit = day>0 ? profit/day*daysInMonth : 0;
+  const [pMin,pMax] = g.monthly_profit_target_eur || [7000,10000];
+  const onPace = delta>=0;
+
+  document.getElementById("updated").textContent =
+    MONTHS[now.getMonth()]+" "+now.getFullYear()+(last ? " · данни до "+last.date : " · няма записи");
+
+  const recent = entries.slice(-7).reverse().map(e=>
+    `<tr><td class="d">${e.date.slice(8)}.${e.date.slice(5,7)}</td>
+     <td class="d">${e.daily.orders} пор. · ${fmtEUR(e.daily.spend)}</td>
+     <td class="r">${fmtEUR(e.daily.revenue)}</td></tr>`).join("");
+
+  document.getElementById("content").innerHTML = `
+  <div class="hero">
+    <div class="row">
+      <div><div class="eyebrow" style="color:var(--khaki)">Оборот до момента</div>
+        <div class="num">${fmtEUR(rev)}</div></div>
+      <div style="text-align:right"><div class="eyebrow">Цел</div>
+        <div class="goal" style="margin-top:8px;font-size:18px">${fmtEUR(goal)}</div></div>
+    </div>
+    <div class="track">
+      <div class="fill ${onPace?"":"bad"}" style="width:${progress*100}%"></div>
+      <div class="marker" style="left:${planPct*100}%"></div>
+    </div>
+    <div class="sub"><span>${Math.round(progress*100)}% изпълнение</span><span>план днес: ${fmtEUR(planRev)}</span></div>
+    <div class="pace row">
+      <span class="${onPace?"ok":"bad"}">${onPace?"▲ Пред плана с ":"▼ Зад плана с "}${fmtEUR(Math.abs(delta))}</span>
+      <span style="color:var(--stone);font-size:12px">прогноза: ${fmtEUR(proj)}</span>
+    </div>
+  </div>
+
+  <div class="grid">
+    ${kpi("Поръчки", orders||"—", "цел ~"+Math.round(goal/(g.target_aov_eur||43)))}
+    ${kpi("AOV", aov?"€"+fmt1(aov):"—", "цел €"+(g.target_aov_eur||43)+"+")}
+    ${kpi("Разход", fmtEUR(spend), "≤ "+fmtEUR(goal/(g.target_mer_min||3)))}
+    ${kpi("MER", fmt2(mer), "цел ≥ "+(g.target_mer_min||3).toFixed(1))}
+    ${kpi("CPP", cpp?"€"+fmt1(cpp):"—", "цел €"+(g.target_cpp_eur?g.target_cpp_eur.join("–"):"12–14.5"))}
+    ${kpi("Ост./ден", fmtEUR(perDay), remDays+" дни")}
+  </div>
+
+  <div class="card profit">
+    <div class="row"><div class="eyebrow">Оценка на печалбата (MTD)</div>
+      <div style="font-size:10px;color:var(--faded)">цел ${fmtEUR(pMin)}–${fmtEUR(pMax)}</div></div>
+    <div class="row" style="margin-top:8px">
+      <div class="v ${profit<pMin?"low":""}">${fmtEUR(profit)}</div>
+      <div style="font-size:12px;color:var(--stone)">прогноза: <b style="color:var(--graphite)">${fmtEUR(projProfit)}</b></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="eyebrow">Последни дни</div>
+    <table>${recent || '<tr><td class="d">Няма записи още — изчакай първия run на routine-а.</td></tr>'}</table>
+  </div>`;
+}
+
+function kpi(t,v,sub){
+  return `<div class="kpi"><div class="eyebrow">${t}</div><div class="v">${v}</div><div class="t">${sub}</div></div>`;
+}
+load();
+</script>
+</body>
+</html>

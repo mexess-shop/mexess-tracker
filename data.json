@@ -1,0 +1,18 @@
+{
+  "months": {
+    "2026-07": {
+      "goal_eur": 30000,
+      "entries": []
+    }
+  },
+  "_schema": {
+    "entry": {
+      "date": "YYYY-MM-DD (yesterday, the day being reported)",
+      "daily": { "revenue": 0, "spend": 0, "orders": 0 },
+      "mtd": { "revenue": 0, "spend": 0, "orders": 0 },
+      "shopify_mtd_revenue": 0,
+      "profit_mtd_est": 0,
+      "notes": "optional anomalies"
+    }
+  }
+}
