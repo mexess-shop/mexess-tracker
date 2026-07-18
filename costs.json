@@ -16,7 +16,7 @@
   },
   "meta": {
     "ad_account_id": "act_888108638763676",
-    "active_campaigns": ["BROAD EU", "Retargeting", "BOF Balkans", "BOF DACH"]
+    "campaigns_note": "Анализирай ВСИЧКИ активни кампании в акаунта, извлечени на живо при всеки run. Не разчитай на фиксиран списък."
   },
   "products": {
     "tshirt":     { "price_eur": 29.90, "cogs_eur": 4.58,  "weight_kg": 0.20 },
