@@ -2,7 +2,16 @@
   "months": {
     "2026-07": {
       "goal_eur": 30000,
-      "entries": []
+      "entries": [
+        {
+          "date": "2026-07-17",
+          "daily": { "revenue": 399.76, "spend": 203.96, "orders": 8 },
+          "mtd": { "revenue": 11516.51, "spend": 3407.25, "orders": 198 },
+          "shopify_mtd_revenue": 11815.82,
+          "profit_mtd_est": 5238.18,
+          "notes": "daily/mtd = Meta (акаунт act_888108638763676; revenue = ROAS x spend, закръгляне на ROAS). Активни кампании MTD: BROAD EU €2540.64/147 покупки/ROAS 3.14; Retargeting €554.77/34/4.07; BOF Balkans €171.67/14/6.16; BOF DACH €50.10/3/4.78. Shopify вчера: 13 поръчки/€834.96 (Meta вчера: 8/€399.76, ROAS 1.96). Печалба: order-by-order върху 211 валидни поръчки 01-17.07 (сума €12719.91 с ДДС; анулирани изключени, pending COD включени): -COGS €2475.70 -доставка €1361.24 -COD €42.10 -2% плащания €195.44 -Meta €3407.25. База = брутен оборот с ДДС (както 62% CM конвенцията); без ДДС (€2282.01) би било €2956.17. Апроксимации (~€194 от доставката): BG вътрешни тарифи липсват в costs.json (18 поръчки, приети €3.00-3.80 + 1% COD); Correos Express->CTT, Posti->Finland Post, BoxNow->Geniki; Polo/Shorts като tshirt; MYSTERY BOX като 2x tshirt COGS/тегло; HU GLS COD €1.15 (среда на 0.55-1.76). Разлика Shopify analytics (€11815.82) vs сума поръчки (€12719.91) = връщания/refund-и, вкл. по юнски поръчки."
+        }
+      ]
     }
   },
   "_schema": {
