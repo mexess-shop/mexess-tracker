@@ -599,6 +599,22 @@
           "shopify_mtd_revenue": 9523.09,
           "profit_mtd_est": 2546.61,
           "notes": "Meta act_888108638763676 EUR. daily/mtd revenue+orders = Meta omni_purchase(_values); ROAS MTD 2.82, CPP(spend/purch) €18.68. Активни кампании: BROAD EU (spend €1224.5, ROAS 3.30), BG Zone (€435, 2.47), Retargeting (€280, 3.62), EU zone (€57.9, 5.51); DACH/ES Zone и Advantage+ на пауза. Shopify MTD total_sales €9523.09 (201 поръчки, AOV €45.06), MER=9523/2653=3.59. profit_mtd поръчково-агрегирано: приход total_sales - COGS €2692.7 (T-shirt 499, Hoodie 13, Sweatshirt 12 бр по costs.json; Polo/MysteryBox/Shorts оценени) - доставка+застраховка ~€1440 (band1 address по държава от country mix) - 2% плащания €190 - Meta €2653.3; COD≈0 без BG. ЛИПСИ: costs.json няма BG тарифи/Speedy/Econt и COD такса за BG (42 поръчки, вкл. вчерашни COD) - домашният пазар е оценен ~€2.8/пратка. US/CN изключени от CVR (бот). Вчера: 3x BG COD Speedy + 1x HR DPD (259€)."
+        },
+        {
+          "date": "2026-08-25",
+          "daily": {
+            "revenue": 344.84,
+            "spend": 69.29,
+            "orders": 4
+          },
+          "mtd": {
+            "revenue": 7833.75,
+            "spend": 2723.23,
+            "orders": 146
+          },
+          "shopify_mtd_revenue": 10087.33,
+          "profit_mtd_est": 2889.79,
+          "notes": "Meta act_888108638763676 EUR. daily/mtd revenue+orders = Meta omni_purchase(_values); ROAS MTD 2.88, CPP(spend/purch) €18.65. Активни кампании MTD (spend/purch/ROAS): BROAD EU €1224.54/79/3.30; BG Zone €458.30/28/2.83; DACH Zone €410.19/12/1.86; Retargeting €289.26/20/3.51; EU zone €95.19/3/4.61; Advantage+ EN €77.33/4/3.55; Advantage+ DE €136.56 (0 покупки); ES Zone €31.04 (0). Shopify MTD total_sales €10087.33 (208 поръчки), MER=10087/2723=3.70. profit_mtd поръчково-агрегирано: приход total_sales - COGS €2870.7 (T-shirt/Polo 529 бр, Hoodie 16, Sweatshirt 13, MysteryBox 4x3tees по costs.json) - доставка+застраховка ~€1440 (band1 address по държава от country mix + 1% застраховка + band2 надбавка за hoodie/sweat) - 2% плащания €163.7 (само карта, BG COD изключен) - Meta €2723.2; COD≈0. ЛИПСИ: costs.json няма BG тарифи/Speedy/Econt и BG COD такса (45 BG поръчки, вкл. вчерашните COD) - домашният пазар е оценен ~€2.8/пратка; US поръчки нямат тариф (~€10 оценка). US/CN изключени от CVR (бот). Разминаване Meta rev €7833.75 vs Shopify €10087.33 = 22% (нормално: Shopify включва органичен/директен/BG COD трафик извън Meta атрибуцията). Вчера (25.08) 8 поръчки: 5x BG Speedy COD (автомат/офис/до адрес), 1x US USPS €87.64 (изкл. от CVR), 1x NL PostNL, 1x DE Hermes (3 hoodie)."
         }
       ]
     }
